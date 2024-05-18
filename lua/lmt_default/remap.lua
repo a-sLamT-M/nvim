@@ -126,6 +126,12 @@ function M.init()
 		vim.api.nvim_command("split v")
 	end)
 
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "netrw",
+		callback = function ()
+			vim.keymap.set('n', 'i', 'k', {buffer = true})
+		end
+	})
 end
 
 -- lsp
@@ -146,10 +152,12 @@ function M.map_lsp_keys(event)
 	__map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 	__map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 	__map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-	__map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+	__map('<leader>r', vim.lsp.buf.code_action, '[C]ode [A]ction')
 	__map('h', vim.lsp.buf.hover, 'Hover Documentation')
 	__map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 	__map('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
 end
+
+
 
 return M;
