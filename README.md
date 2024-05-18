@@ -1,5 +1,5 @@
 # FORK
-This is a fork and didn't complete.
+This is a fork.
 
 # WHY PUBLIC?
 I dono.

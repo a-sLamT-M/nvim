@@ -81,7 +81,10 @@ function M.init()
 		})
 	end, { desc = '[/] Fuzzily search in current buffer' })
 
-
+	-- barbar
+	map.set('n', '<A-j>', '<Cmd>BufferPrevious<CR>')
+	map.set('n', '<A-l>', '<Cmd>BufferNext<CR>')
+	map.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
 	-- Harpoon
 	local harpoon = require('harpoon')
@@ -130,6 +133,7 @@ function M.init()
 		pattern = "netrw",
 		callback = function ()
 			vim.keymap.set('n', 'i', 'k', {buffer = true})
+			vim.keymap.set('n', 'n', '%', {buffer = true})
 		end
 	})
 end
