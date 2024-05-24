@@ -24,3 +24,4 @@ require("lmt_default.lazy")
 require("lmt_default.vim_opt")
 local remap = require("lmt_default.remap")
 remap.init()
+

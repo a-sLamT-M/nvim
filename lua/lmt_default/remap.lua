@@ -106,34 +106,35 @@ function M.init()
 	vim.keymap.set("v", "I", ":m '<-2<CR>gv=gv")
 
 	-- reformat
-	imap("<C-A-l>", function ()
+	imap("<C-A-l>", function()
 		vim.lsp.buf.format({
 			async = true
-		}) 
+		})
 		utils.to_normal()
 	end)
 
 	-- reformat
-	nmap("<C-A-l>", function ()
+	nmap("<C-A-l>", function()
 		vim.lsp.buf.format({
 			async = true
 		})
 	end)
 
 	-- panes
-	nmap("<leader>sh", function ()
+	nmap("<leader>sh", function()
 		vim.api.nvim_command("split h")
 	end)
 
-	nmap("<leader>sv", function ()
+	nmap("<leader>sv", function()
 		vim.api.nvim_command("split v")
 	end)
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = "netrw",
-		callback = function ()
-			vim.keymap.set('n', 'i', 'k', {buffer = true})
-			vim.keymap.set('n', 'n', '%', {buffer = true})
+		callback = function()
+			vim.keymap.set('n', 'i', 'k', { buffer = true })
+			vim.keymap.set('n', 'f', '%', { buffer = true })
+			vim.keymap.set('n', '.', 'n', { buffer = true })
 		end
 	})
 end
@@ -151,7 +152,7 @@ function M.map_lsp_keys(event)
 	end, '[W]orkspace [L]ist Folders')
 	__map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 	__map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-	__map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+	__map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 	__map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 	__map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 	__map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -161,7 +162,5 @@ function M.map_lsp_keys(event)
 	__map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 	__map('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
 end
-
-
 
 return M;
