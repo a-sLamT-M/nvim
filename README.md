@@ -1,3 +1,11 @@
+# Quick Start
+```sh
+git clone https://github.com/a-sLamT-M/nvim "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
+For owner:
+```sh 
+git clone git@github.com/a-sLamT-M/nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
 # FORK
 This is a fork.
 
