@@ -6,6 +6,7 @@ return -- Fuzzy Finder (files, lsp, etc)
     -- Only load if `make` is available. Make sure you have the system
     -- requirements installed.
     {
+		'sudormrfbin/cheatsheet.nvim',
         'nvim-telescope/telescope-fzf-native.nvim',
         -- NOTE: If you are having trouble with this installation,
         --       refer to the README for telescope-fzf-native for more instructions.

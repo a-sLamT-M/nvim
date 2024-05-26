@@ -9,7 +9,8 @@ local bundles = {
 }
 
 -- Needed for running/debugging unit tests
-vim.list_extend(bundles, vim.split(vim.fn.glob(vim.env.HOME .. "/.local/share/nvim/mason/share/java-test/*.jar", true), "\n"))
+vim.list_extend(bundles,
+	vim.split(vim.fn.glob(vim.env.HOME .. "/.local/share/nvim/mason/share/java-test/*.jar", true), "\n"))
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
 local root_dir = require("jdtls.setup").find_root(root_markers)
 if root_dir == "" then

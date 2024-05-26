@@ -129,6 +129,8 @@ function M.init()
 		vim.api.nvim_command("split v")
 	end)
 
+	map.set('n', '<C-w>j', "<C-w>h", { buffer = true })
+
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = "netrw",
 		callback = function()
@@ -161,6 +163,20 @@ function M.map_lsp_keys(event)
 	__map('h', vim.lsp.buf.hover, 'Hover Documentation')
 	__map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 	__map('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
+end
+
+function M.map_debug_keys(dap, dapui)
+	-- Basic debugging keymaps, feel free to change to your liking!
+	vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+	vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
+	vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
+	vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+	vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+	vim.keymap.set('n', '<leader>B', function()
+		dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+	end, { desc = 'Debug: Set Breakpoint' })
+	-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+	vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
 end
 
 return M;

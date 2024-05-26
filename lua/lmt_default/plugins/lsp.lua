@@ -5,8 +5,9 @@ return {
 	'neovim/nvim-lspconfig',
 	dependencies = { -- Automatically install LSPs to stdpath for neovim
 		{
-			'VonHeikemen/lsp-zero.nvim',
+			-- 'VonHeikemen/lsp-zero.nvim',
 			'williamboman/mason.nvim',
+			'WhoIsSethDaniel/mason-tool-installer.nvim',
 			config = true
 		}, 'williamboman/mason-lspconfig.nvim', -- Useful status updates for LSP
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -18,7 +19,7 @@ return {
 	},
 	config = function()
 		require('mason').setup()
-			-- Create your keybindings here...
+		-- Create your keybindings here...
 		require('neodev').setup()
 
 		local remap = require("lmt_default.remap")
@@ -82,6 +83,7 @@ return {
 		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 		local mason_lspconfig = require 'mason-lspconfig'
+		local mason_tool_installer = require 'mason-tool-installer'
 		local servers = {
 			-- clangd = {},
 			-- gopls = {},
@@ -108,12 +110,15 @@ return {
 			tsserver = {},
 			volar = {}
 		}
-		mason_lspconfig.setup {
+		servers['java-debug-adapter'] = {}
+		servers['java-test'] = {}
+		
+		mason_tool_installer.setup {
 			ensure_installed = vim.tbl_keys(servers)
 		}
 
 		mason_lspconfig.setup_handlers { function(server_name)
-			if server_name == "jdtls" then 
+			if server_name == "jdtls" then
 				return;
 			end
 			require('lspconfig')[server_name].setup {
