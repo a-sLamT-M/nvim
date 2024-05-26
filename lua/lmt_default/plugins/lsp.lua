@@ -17,28 +17,8 @@ return {
 		'hrsh7th/nvim-cmp', 'folke/neodev.nvim'
 	},
 	config = function()
-		local lsp_zero = require('lsp-zero')
-
-		lsp_zero.on_attach(function(client, bufnr)
-			-- see :help lsp-zero-keybindings
-			-- to learn the available actions
-			lsp_zero.default_keymaps({ buffer = bufnr })
-		end)
-
 		require('mason').setup()
-		require('mason-lspconfig').setup({
-			ensure_installed = { 'pyright', 'lua_ls', 'jdtls', 'intelephense', 'tsserver', 'volar' },
-			handlers = {
-				["jdtls"] = lsp_zero.noop,
-
-				function(server_name)
-					if (server_name == "jdtls") then
-						return;
-					end
-					require('lspconfig')[server_name].setup({})
-				end,
-			},
-		})
+			-- Create your keybindings here...
 		require('neodev').setup()
 
 		local remap = require("lmt_default.remap")
@@ -120,13 +100,22 @@ return {
 					-- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
 					-- diagnostics = { disable = { 'missing-fields' } },
 				}
-			}
+			},
+
+			pyright = {},
+			jdtls = {},
+			intelephense = {},
+			tsserver = {},
+			volar = {}
 		}
 		mason_lspconfig.setup {
 			ensure_installed = vim.tbl_keys(servers)
 		}
 
 		mason_lspconfig.setup_handlers { function(server_name)
+			if server_name == "jdtls" then 
+				return;
+			end
 			require('lspconfig')[server_name].setup {
 				capabilities = capabilities,
 				on_attach = on_attach,

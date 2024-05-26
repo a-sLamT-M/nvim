@@ -1,25 +1,21 @@
 #!/bin/bash
 
-# Define necessary directories and file paths
-JDTLS_DIR="$HOME/jdtls"
-PLUGINS_DIR="$JDTLS_DIR/plugins"
-LOMBOK_JAR_URL="https://projectlombok.org/downloads/lombok.jar"
-JDTLS_JAR_URL="https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz"  # Update this URL with the actual download link
+# 设置Java版本和目标安装路径
+JAVA17_VERSION="jdk-17"
+JAVA8_VERSION="jdk-8u202"
+JAVA17_HOME="/usr/lib/jdtls_java/$JAVA17_VERSION"
+JAVA8_HOME="/usr/lib/nvim-jdk/java-8-openjdk-amd64"
 
-# lombok
+mkdir -p "$JAVA17_HOME"
+mkdir -p "$JAVA8_HOME"
 
-# Create plugins directory
-mkdir -p "$PLUGINS_DIR"
-echo "Directory created at $PLUGINS_DIR"
+wget -O "/tmp/$JAVA17_VERSION.tar.gz" "https://cdn.azul.com/zulu/bin/zulu17.50.19-ca-jdk17.0.11-linux_x64.tar.gz"
+wget -O "/tmp/$JAVA8_VERSION.tar.gz" "https://cdn.azul.com/zulu/bin/zulu8.78.0.19-ca-jdk8.0.412-linux_x64.tar.gz"
 
-# Download Lombok JAR
-echo "Downloading Lombok..."
-curl -L "$LOMBOK_JAR_URL" -o "$PLUGINS_DIR/lombok.jar"
-if [ $? -eq 0 ]; then
-    echo "Lombok download complete."
-else
-    echo "Failed to download Lombok."
-    exit 1
-fi
+tar -xzf "/tmp/$JAVA17_VERSION.tar.gz" --directory "$JAVA17_HOME" --strip-components=1
+tar -xzf "/tmp/$JAVA8_VERSION.tar.gz" --directory "$JAVA8_HOME" --strip-components=1
 
-echo "Install successfully."
+rm "/tmp/$JAVA17_VERSION.tar.gz"
+rm "/tmp/$JAVA8_VERSION.tar.gz"
+
+echo "Java 17 and Java 8 have been installed."
