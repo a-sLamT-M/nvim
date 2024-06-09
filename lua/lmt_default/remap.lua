@@ -96,7 +96,8 @@ function M.init()
 	vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end)
 	vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end)
 	vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end)
-
+	
+	-- vim.keymap.set("n", "<C-_>", "gcc")
 
 	-- undotree
 	nmap("<leader>u", vim.cmd.UndotreeToggle)
@@ -105,21 +106,9 @@ function M.init()
 	vim.keymap.set("v", "K", ":m '>+1<CR>gv=gv")
 	vim.keymap.set("v", "I", ":m '<-2<CR>gv=gv")
 
-	-- reformat
-	imap("<C-A-l>", function()
-		vim.lsp.buf.format({
-			async = true
-		})
-		utils.to_normal()
+	vim.keymap.set('n', '<C-A-l>', function()
+		vim.lsp.buf.format({})
 	end)
-
-	-- reformat
-	nmap("<C-A-l>", function()
-		vim.lsp.buf.format({
-			async = true
-		})
-	end)
-
 	-- panes
 	nmap("<leader>sh", function()
 		vim.api.nvim_command("split h")
